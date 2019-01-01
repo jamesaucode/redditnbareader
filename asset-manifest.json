@@ -1,13 +1,13 @@
 {
-  "main.css": "/redditnbareader/static/css/main.65104e07.chunk.css",
-  "main.js": "/redditnbareader/static/js/main.02ddc654.chunk.js",
-  "main.js.map": "/redditnbareader/static/js/main.02ddc654.chunk.js.map",
-  "static/js/1.f739feb7.chunk.js": "/redditnbareader/static/js/1.f739feb7.chunk.js",
-  "static/js/1.f739feb7.chunk.js.map": "/redditnbareader/static/js/1.f739feb7.chunk.js.map",
+  "main.css": "/redditnbareader/static/css/main.2d158774.chunk.css",
+  "main.js": "/redditnbareader/static/js/main.7450d004.chunk.js",
+  "main.js.map": "/redditnbareader/static/js/main.7450d004.chunk.js.map",
+  "static/js/1.11fc1eda.chunk.js": "/redditnbareader/static/js/1.11fc1eda.chunk.js",
+  "static/js/1.11fc1eda.chunk.js.map": "/redditnbareader/static/js/1.11fc1eda.chunk.js.map",
   "runtime~main.js": "/redditnbareader/static/js/runtime~main.f70dbb9a.js",
   "runtime~main.js.map": "/redditnbareader/static/js/runtime~main.f70dbb9a.js.map",
-  "static/css/main.65104e07.chunk.css.map": "/redditnbareader/static/css/main.65104e07.chunk.css.map",
+  "static/css/main.2d158774.chunk.css.map": "/redditnbareader/static/css/main.2d158774.chunk.css.map",
   "index.html": "/redditnbareader/index.html",
-  "precache-manifest.7569f0cfddf0eb678fb3202e77b10804.js": "/redditnbareader/precache-manifest.7569f0cfddf0eb678fb3202e77b10804.js",
+  "precache-manifest.ce5c9e82736d7d91248bf8d43b8c70c5.js": "/redditnbareader/precache-manifest.ce5c9e82736d7d91248bf8d43b8c70c5.js",
   "service-worker.js": "/redditnbareader/service-worker.js"
 }
