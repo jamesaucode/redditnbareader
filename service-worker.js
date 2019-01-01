@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/jamesaucode/redditnbareader/precache-manifest.47a454336211a66f6984ecb8ec297038.js"
+  "/redditnbareader/precache-manifest.2a7761b796418f3ff7ae71c22d56ca9c.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/jamesaucode/redditnbareader/index.html", {
+workbox.routing.registerNavigationRoute("/redditnbareader/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
