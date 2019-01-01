@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/redditnbareader/static/css/main.6319505a.chunk.css"
   },
   {
-    "revision": "f18fe9ae4af18401b1cb5f7af1b505b0",
+    "revision": "780e5b7f6080b1e6c1382bde9f5b849a",
     "url": "/redditnbareader/index.html"
   }
 ];
