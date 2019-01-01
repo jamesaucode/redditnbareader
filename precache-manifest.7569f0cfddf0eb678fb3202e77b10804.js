@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/redditnbareader/static/js/runtime~main.f70dbb9a.js"
   },
   {
-    "revision": "0c758f7be729ff32a08a",
-    "url": "/redditnbareader/static/js/main.0c758f7b.chunk.js"
+    "revision": "02ddc654cc9e0245ff58",
+    "url": "/redditnbareader/static/js/main.02ddc654.chunk.js"
   },
   {
     "revision": "f739feb7d61c48a46bed",
     "url": "/redditnbareader/static/js/1.f739feb7.chunk.js"
   },
   {
-    "revision": "0c758f7be729ff32a08a",
-    "url": "/redditnbareader/static/css/main.b1bfe640.chunk.css"
+    "revision": "02ddc654cc9e0245ff58",
+    "url": "/redditnbareader/static/css/main.65104e07.chunk.css"
   },
   {
-    "revision": "5c553f5624939196a0cf423f3785b38c",
+    "revision": "2d155b781ab0a45b7a30f86778a59932",
     "url": "/redditnbareader/index.html"
   }
 ];
