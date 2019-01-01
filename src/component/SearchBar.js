@@ -7,7 +7,7 @@ export default class SearchBar extends Component {
   render() {
       const { searchTerm } = this.props; 
     return (
-      <div className="flex-centered margin-top-bottom--small">
+      <div className="flex-centered margin-top-bottom--small max-width">
         <input 
         placeholder="Search Post"
         className="search-bar"
