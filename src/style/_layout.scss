@@ -54,6 +54,7 @@
     display: flex;
     flex-direction: column;
     position: absolute;
+    left: -150px;
     z-index: inherit;
     width: 200px;
     padding: 10px 0;
@@ -82,7 +83,7 @@
 }
 
 .wrapper--list {
-    max-width: 700px;
+    max-width: 800px;
     width:100%;
     margin: 0 auto;
     background-color: white;
@@ -103,11 +104,12 @@
     justify-content: center;
     width: 100%;
     max-width: 1000px;
+    // max-width: 1000px;
 }
 
 .search-bar {
     padding: 0.5em;
-    width: 80%;
+    width: 100%;
     max-height: 30px;
     border: 0;
     background-color: white;
@@ -117,6 +119,53 @@
     &:hover, &:focus {
         border: 1px solid rgba(black, 0.3);
     }
+}
+
+.schedule {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 2em auto;
+    background-color: white;
+    box-shadow: 4px 4px 8px rgba(black, 0.15);
+}
+
+.team-logo {
+    width: 100%;
+    height: 100%;
+}
+
+.select {
+    display: flex;
+    justify-content: center;
+    width: 15%;
+}
+
+.wrapper--team-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+    height: 80%;
+}
+
+.game-detail {
+    width: 60%;
+    text-align: center;
+}
+
+.game {
+    display: flex;
+    width: 100%;
+    height: 200px;
+    // max-width: 600px;
+    padding: 1em 2em;
+    font-size: 1em;
+    color: rgba(0,0,0,0.75);
+    justify-content: center;
+    align-items: center;
 }
 
 .menu {

@@ -46,7 +46,21 @@ const chainFetch = () => {
       return fetch(`https://www.reddit.com/r/nba.json?after=${after}&limit=100`);
     })
     .catch(err => console.log('Request failed' + err))
+    return data
 }
 
-export { chainFetch }
+const makeMatchString = (homeTeam, awayTeam) => {
+  return homeTeam + " vs " + awayTeam 
+}
+
+const cleanString = (str) => {
+  return str.toLowerCase().replace(/ /g, '')
+}
+
+const turnEpoch = (date) => {
+  var epoch = new Date(date)
+  return epoch.getTime();
+}
+
+export { chainFetch, makeMatchString, cleanString, turnEpoch }
 
