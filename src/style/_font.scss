@@ -9,7 +9,7 @@
 .date {
     width: 100%;
     margin-bottom: 0.5em;
-    padding-left: 10%;
+    padding-left: 30%;
     color: rgba(0,0,0,0.5);
     text-align: center;
 }
@@ -40,7 +40,7 @@
 
 .link {
     font-size: 1.25em;
-    width: 90%;
+    width: 70%;
     font-weight: 400;
     color: rgba(black, 0.75);
     &:hover {
@@ -51,18 +51,18 @@
 
 .score {
     font-size: 1em;
-    width: 10%;
-    margin-right: 0.5em;
+    width: 15%;
+    // margin-right: 0.5em;
     font-weight: 700;
     color: rgba(black, 0.75);
 }
 
 .label {
     font-weight: 700;
-    width: 10%;
+    width: 15%;
 
     &--big {
-        width: 90%;
+        width: 70%;
         font-weight: 700;
         // padding-right: 4vw;
     }

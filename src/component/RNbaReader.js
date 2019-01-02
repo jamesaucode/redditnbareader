@@ -171,7 +171,6 @@ class App extends Component {
     return (
       <div className="app">
         <div className="wrapper-nav">
-        <button onClick={this.test}>TEST</button>
           <nav className="nav-bar">
             <div className="heading">
               <span className="linear-gradient-orange">r/nba</span> Reader
@@ -237,6 +236,7 @@ class App extends Component {
           <div className="list-item">
             <div className="title-score">
               <p className="label">Score</p>
+              <p className="label">Comments</p>
               <p className="label--big">Post Title</p>
             </div>
           </div>
@@ -247,6 +247,7 @@ class App extends Component {
                   <p className="date">{this.makeDate(d.data.created)}</p>
                   <div className="title-score">
                     <p className="score">{d.data.score}</p>
+                    <p className="score">{d.data.num_comments}</p>
                     <a
                       href={"https://www.reddit.com" + d.data.permalink}
                       rel="noopener noreferrer"
