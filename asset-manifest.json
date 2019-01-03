@@ -1,9 +1,9 @@
 {
-  "main.css": "/redditnbareader/static/css/main.674c8604.chunk.css",
-  "main.js": "/redditnbareader/static/js/main.c35409d0.chunk.js",
-  "main.js.map": "/redditnbareader/static/js/main.c35409d0.chunk.js.map",
-  "static/js/1.0cf5eaca.chunk.js": "/redditnbareader/static/js/1.0cf5eaca.chunk.js",
-  "static/js/1.0cf5eaca.chunk.js.map": "/redditnbareader/static/js/1.0cf5eaca.chunk.js.map",
+  "main.css": "/redditnbareader/static/css/main.883f0b68.chunk.css",
+  "main.js": "/redditnbareader/static/js/main.6436ecc8.chunk.js",
+  "main.js.map": "/redditnbareader/static/js/main.6436ecc8.chunk.js.map",
+  "static/js/1.305a4800.chunk.js": "/redditnbareader/static/js/1.305a4800.chunk.js",
+  "static/js/1.305a4800.chunk.js.map": "/redditnbareader/static/js/1.305a4800.chunk.js.map",
   "runtime~main.js": "/redditnbareader/static/js/runtime~main.f70dbb9a.js",
   "runtime~main.js.map": "/redditnbareader/static/js/runtime~main.f70dbb9a.js.map",
   "static/media/orlando.png": "/redditnbareader/static/media/orlando.f6764ff5.png",
@@ -33,8 +33,8 @@
   "static/media/toronto.png": "/redditnbareader/static/media/toronto.728f6548.png",
   "static/media/utah.png": "/redditnbareader/static/media/utah.8a3d56fe.png",
   "static/media/washington.png": "/redditnbareader/static/media/washington.074d3f98.png",
-  "static/css/main.674c8604.chunk.css.map": "/redditnbareader/static/css/main.674c8604.chunk.css.map",
+  "static/css/main.883f0b68.chunk.css.map": "/redditnbareader/static/css/main.883f0b68.chunk.css.map",
   "index.html": "/redditnbareader/index.html",
-  "precache-manifest.66ea2765e8ec858aedccf79574ddfa96.js": "/redditnbareader/precache-manifest.66ea2765e8ec858aedccf79574ddfa96.js",
+  "precache-manifest.6b59f004a785f60e68c7d2ae815505b0.js": "/redditnbareader/precache-manifest.6b59f004a785f60e68c7d2ae815505b0.js",
   "service-worker.js": "/redditnbareader/service-worker.js"
 }
