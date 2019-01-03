@@ -8,6 +8,7 @@
 
 .date {
     width: 100%;
+    font-size: 0.75em;
     margin-bottom: 0.5em;
     padding-left: 30%;
     color: rgba(0,0,0,0.5);
@@ -16,8 +17,18 @@
 
 .date--schedule {
     width: 80%;
-    margin: 0.5em auto;
+    font-size: 0.75em;
+    margin-top: auto;
+    // margin: 0.5em auto;
     color: rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.link--schedule {
+    width: 80%;
+    font-size: 0.75em;
+    margin-top: auto;
+    color: rgba(blue,0.5);
     text-align: center;
 }
 
@@ -26,22 +37,25 @@
     width: 30%;
     text-align: center;
     text-shadow: 4px 4px 2px rgba(black, 0.3);
-    color: black;
+    color: white;
     font-weight: 700;
 }
 
 .linear-gradient-orange {
-    background: linear-gradient(rgb(255, 238, 215)rgb(248, 197, 167));
-    text-shadow: 4px 4px 2px rgba(orange, 0.1);
-    background: -webkit-linear-gradient(rgb(253, 224, 185),rgb(255, 163, 110));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    // background: linear-gradient(rgb(255, 219, 168))rgb(248, 197, 167);
+    // text-shadow: 4px 4px 2px rgba(orange, 0.1);
+    // background: -webkit-linear-gradient(rgb(255, 221, 173)rgb(248, 197, 167));
+    // color: white;
+    z-index: inherit;
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
 }
 
 .link {
-    font-size: 1.25em;
+    font-size: 1.1em;
+    // font-family: 'Open Sans';
     width: 70%;
-    font-weight: 400;
+    font-weight: 300;
     color: rgba(black, 0.75);
     &:hover {
         cursor: pointer;
@@ -50,7 +64,7 @@
 }
 
 .score {
-    font-size: 1em;
+    font-size: 0.75em;
     width: 15%;
     // margin-right: 0.5em;
     font-weight: 700;
@@ -58,19 +72,23 @@
 }
 
 .label {
-    font-weight: 700;
+    font-size: 0.75em;
+    // font-family: "Open Sans";
+    font-weight: 500;
     width: 15%;
 
     &--big {
+        font-size: 0.75em;
         width: 70%;
-        font-weight: 700;
+        font-weight: 500;
         // padding-right: 4vw;
     }
 }
 
 .team-name {
-    font-size: 1.25em;
-    font-weight: 500;
+    font-size: 0.8em;
+    width: 70%;
+    font-weight: 400;
     text-align: center;
 }
 

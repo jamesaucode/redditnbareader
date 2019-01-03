@@ -1,35 +1,22 @@
 import React, { Component } from 'react';
-import '../style/main.scss';
 import SearchBar from './SearchBar';
+import DropDownOption from './DropDownOption';
 import filterIcon from '../image/funnel.png';
 import sortIcon from '../image/sort.png';
-import tickIcon from '../image/tick.png'; 
-import { chainFetch } from '../Helper';
+import dropDownIcon from '../image/dropdown.png';
+import dropUpIcon from '../image/dropup.png';
+import { makeDate } from '../Helper';
 
-class App extends Component {
+export default class RNbaReader extends Component {
   state = {
     data: [],
+    forumOpened: false,
     linkOpened: false,
     searchTerm: '',
     filter: 'Post Game Thread',
     sortBy: 'date',
     filterOpen: false,
     sortByOpen: false,
-  }
-
-  test = e => {
-    console.log(this.state.data[0].data.title)
-    this.state.data.forEach(d => {
-      if (d.data.title.toLowerCase().includes('golden state')) {
-        console.log(d.data.title)
-      }
-    })
-  }
-
-  makeDate = (seconds) => {
-    var date = new Date(seconds * 1000);
-    var dateString = date.toLocaleString();
-    return dateString;
   }
 
   onLinkClick = e => {
@@ -53,6 +40,13 @@ class App extends Component {
       sortBy: e.target.value
     })
   }
+
+  onForumToggleClick = e => {
+    this.setState(prevState => ({
+      forumOpened: !prevState.forumOpened
+    }))
+  }
+
   onFilterClick = e => {
     this.setState(prevState => ({
       filterOpen: !prevState.filterOpen,
@@ -95,52 +89,20 @@ class App extends Component {
       sortByOpen: false
     })
   }
+  onSortByCommentsClick = e => {
+    this.setState({
+      sortBy: 'comments',
+      sortByOpen: false
+    })
+  }
+
+  getHighlightedText = (text, higlight) => {
+    // Split text on higlight term, include term itself into parts, ignore case
+    var parts = text.split(new RegExp(`(${higlight})`, 'gi'));
+    return <span>{parts.map(part => part.toLowerCase() === higlight.toLowerCase() ? <b>{part}</b> : part)}</span>;
+  }
 
   componentDidMount = () => {
-    fetch('https://www.reddit.com/r/nba.json?limit=100').then(response => {
-      return response.json();
-    }).then(json => {
-      this.setState({
-        data: json.data.children
-      })
-      var after = json.data.after;
-      return fetch(`https://www.reddit.com/r/nba.json?after=${after}&limit=100`);
-    })
-      .then(response => response.json())
-      .then(json => {
-        this.setState({
-          data: this.state.data.concat(json.data.children)
-        })
-        var after = json.data.after;
-        return fetch(`https://www.reddit.com/r/nba.json?after=${after}&limit=100`);
-      })
-      .then(response => response.json())
-      .then(json => {
-        this.setState({
-          data: this.state.data.concat(json.data.children)
-        })
-        var after = json.data.after;
-        return fetch(`https://www.reddit.com/r/nba.json?after=${after}&limit=100`)
-      })
-      .then(response => response.json())
-      .then(json => {
-        this.setState({
-          data: this.state.data.concat(json.data.children)
-        })
-        var after = json.data.after;
-        return fetch(`https://www.reddit.com/r/nba.json?after=${after}&limit=100`);
-      })
-      .then(response => response.json())
-      .then(json => {
-        this.setState({
-          data: this.state.data.concat(json.data.children)
-        })
-        var after = json.data.after;
-        return fetch(`https://www.reddit.com/r/nba.json?after=${after}&limit=100`);
-      })
-      .catch(err => console.log('Request failed' + err))
-
-    console.log('Date now is :' + Date.now())
   };
 
   // To do:
@@ -148,36 +110,41 @@ class App extends Component {
   // 2. Different filter (DONE)
 
   render() {
-    const searchTerm = this.state.searchTerm;
-    const filter = this.state.filter;
+    const { searchTerm, filter, filterOpen, forumOpened, sortBy, sortByOpen } = this.state;
+    const { data } = this.props;
     var showFilter = '';
-    if (this.state.filterOpen) {
+    if (filterOpen) {
       showFilter = 'dropdown-content--show'
     } else {
       showFilter = 'dropdown-content'
     }
     var showSortBy = '';
-    if (this.state.sortByOpen) {
+    if (sortByOpen) {
       showSortBy = 'dropdown-content--show'
     } else {
       showSortBy = 'dropdown-content'
     }
-    var filteredData = this.state.data.filter(post => post.data.title.toLowerCase().includes(searchTerm.toLowerCase()));
-    if (this.state.sortBy === "date") {
-      filteredData = filteredData.sort((a, b) => { return b.data.created - a.data.created })
-    } else if (this.state.sortBy === "score") {
-      filteredData = filteredData.sort((a, b) => { return b.data.score - a.data.score })
+    var filteredData = data.filter(post => post.data.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    switch (sortBy) {
+      case 'score':
+        filteredData = filteredData.sort((a, b) => { return b.data.score - a.data.score })
+        break;
+      case 'comments':
+        filteredData = filteredData.sort((a, b) => { return b.data.num_comments - a.data.num_comments })
+        break;
+      default:
+        filteredData = filteredData.sort((a, b) => { return b.data.created - a.data.created })
     }
     return (
       <div className="app">
         <div className="wrapper-nav">
           <nav className="nav-bar">
             <div className="heading">
-              <span className="linear-gradient-orange">r/nba</span> Reader
+              r/nba Reader
             </div>
             <SearchBar
               onSearchTermChange={this.onSearchTermChange}
-              searchTerm={this.state.searchTerm}
+              searchTerm={searchTerm}
             />
             <div className="select">
               <div className="dropdown">
@@ -185,85 +152,102 @@ class App extends Component {
                   <img alt="filter icon" className="icon" src={filterIcon}></img>
                 </button>
                 <div className={showFilter}>
-                  <div onClick={this.onFilterPostGameThreadClick} className="option">
-                    {this.state.filter === "Post Game Thread" ? <img alt="tick icon" className="icon--wide" src={tickIcon}></img>
-                      :
-                      <div className="icon--wide"></div>}
-                    <span>Post Game Thread</span>
-                  </div>
-                  <div onClick={this.onFilterGameThreadClick} className="option">
-                    {this.state.filter === "Game Thread" ?
-                      <img className="icon--wide" alt="tick icon" src={tickIcon}></img> :
-                      <div className="icon--wide"></div>}
-                    <span>Live Game Thread</span>
-                  </div>
-                  <div onClick={this.onFilterHighlightsClick} className="option">
-                    {this.state.filter === "Highlights" ?
-                      <img className="icon--wide" alt="tick icon" src={tickIcon}></img> :
-                      <div className="icon--wide"></div>}
-                    <span>Highlights</span>
-                  </div>
+                  <DropDownOption
+                    currentFilter={filter}
+                    filter="Post Game Thread"
+                    onChangeFilterClick={this.onFilterPostGameThreadClick}
+                  />
+                  <DropDownOption
+                    currentFilter={filter}
+                    filter="Game Thread"
+                    onChangeFilterClick={this.onFilterGameThreadClick}
+                  />
+                  <DropDownOption
+                    currentFilter={filter}
+                    filter="Highlights"
+                    onChangeFilterClick={this.onFilterHighlightsClick}
+                  />
                 </div>
               </div>
             </div>
             <div className="select">
               <div className="dropdown">
                 <button onClick={this.onSortByClick} className="btn-icon">
-                  <img className="icon" alt="tick icon" src={sortIcon}></img>
+                  <img className="icon" alt="sort icon" src={sortIcon}></img>
                 </button>
                 <div className={showSortBy}>
-                  <div onClick={this.onSortByDateClick} className="option">
-                    {this.state.sortBy === "date" ?
-                      <img className="icon--wide" alt="tick icon" src={tickIcon}></img> :
-                      <div className="icon--wide"></div>}
-                    <span>Date</span>
-                  </div>
-                  <div onClick={this.onSortByScoreClick} className="option">
-                    {this.state.sortBy === "score" ?
-                      <img className="icon--wide" alt="tick icon" src={tickIcon}></img> :
-                      <div className="icon--wide"></div>}
-                    <span>Score</span>
-                  </div>
+                  <DropDownOption
+                    currentFilter={sortBy}
+                    filter="date"
+                    onChangeFilterClick={this.onSortByDateClick}
+                  />
+                  <DropDownOption
+                    currentFilter={sortBy}
+                    filter="score"
+                    onChangeFilterClick={this.onSortByScoreClick}
+                  />
+                  <DropDownOption
+                    currentFilter={sortBy}
+                    filter="comments"
+                    onChangeFilterClick={this.onSortByCommentsClick}
+                  />
                 </div>
               </div>
             </div>
           </nav>
         </div>
 
-        {this.state.filterOpen && <div onClick={this.onFilterClick} className="clickable-back"></div>}
+        {filterOpen && <div onClick={this.onFilterClick} className="clickable-back"></div>}
 
-        <div className="wrapper--list">
-          <div className="list-item">
-            <div className="title-score">
-              <p className="label">Score</p>
-              <p className="label">Comments</p>
-              <p className="label--big">Post Title</p>
-            </div>
-          </div>
-          {filteredData.map(d => {
-            if (d.data.link_flair_text === filter) {
-              return (
-                <div className="list-item" key={d.data.id}>
-                  <p className="date">{this.makeDate(d.data.created)}</p>
-                  <div className="title-score">
-                    <p className="score">{d.data.score}</p>
-                    <p className="score">{d.data.num_comments}</p>
-                    <a
-                      href={"https://www.reddit.com" + d.data.permalink}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      className="link">{d.data.title}</a>
-                  </div>
-                </div>
-              )
-            } else {
-              return null;
-            }
-          })}
+        <div className="list-item list-item--margin-top">
+          {forumOpened
+            ?
+            <img
+              className="icon margin-centered"
+              alt="drop up icon"
+              onClick={this.onForumToggleClick}
+              src={dropUpIcon}></img>
+            :
+            <img
+              className="icon margin-centered"
+              alt="drop down icon"
+              onClick={this.onForumToggleClick}
+              src={dropDownIcon}></img>
+          }
         </div>
+
+        {forumOpened &&
+          <div className="wrapper--list">
+            <div className="list-item">
+              <div className="title-score">
+                <p className="label">Score</p>
+                <p className="label">Comments</p>
+                <p className="label--big">Post Title</p>
+              </div>
+            </div>
+            {filteredData.map(d => {
+              if (d.data.link_flair_text === filter) {
+                return (
+                  <div className="list-item" key={d.data.id}>
+                    <p className="date">{makeDate(d.data.created)}</p>
+                    <div className="title-score">
+                      <p className="score">{d.data.score}</p>
+                      <p className="score">{d.data.num_comments}</p>
+                      <a
+                        href={"https://www.reddit.com" + d.data.permalink}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        className="link">{this.getHighlightedText(d.data.title, searchTerm)}</a>
+                    </div>
+                  </div>
+                )
+              } else {
+                return null;
+              }
+            })}
+          </div>
+        }
       </div>
     );
   }
 }
-
-export default App;

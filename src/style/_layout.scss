@@ -1,6 +1,21 @@
 // .app {
 //     display: flex;
 // }
+.main-layout {
+    display: grid;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    grid-template-areas: "app schedule" "app .";
+    grid-template-rows: auto;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 1em;
+}
+
+.app {
+    grid-area: app;
+    width: 100%;
+}
 
 .popout {
     width: 80vw;
@@ -14,7 +29,7 @@
 }
 
 .black-background {
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     width: 100vw;
     height: 100vh;
     top: 50%;
@@ -36,7 +51,7 @@
     height: fit-content;
     width: fit-content;
     z-index: 2;
-    background-color: rgb(255, 116, 23);
+    background-color: inherit;
 }
 
 .dropdown-content {
@@ -64,13 +79,13 @@
 }
 
 .title-score {
-    display:flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .list-item {
-    display:flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 1em;
@@ -79,22 +94,33 @@
     height: fit-content;
     width: 100%;
     text-align: center;
-    // margin: 0 auto;
+    &--margin-top {
+        margin-top: 4.2em;
+    }
 }
 
 .wrapper--list {
-    max-width: 800px;
-    width:100%;
+    // max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     background-color: white;
     box-shadow: 4px 4px 8px rgba(black, 0.15);
 }
 
 .wrapper-nav {
+    position: absolute;
+    left: 0;
     width: 100vw;
-    background-color: rgb(255, 116, 23);
-    // display: flex;
+    background-color: rgb(255, 77, 23); // display: flex;
     // justify-content: center;
+}
+
+.wrapper-btn {
+    display: flex;
+    width: 100%;
+    padding: 1em 2em;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .nav-bar {
@@ -103,8 +129,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 1000px;
-    // max-width: 1000px;
+    max-width: 1000px; // max-width: 1000px;
 }
 
 .search-bar {
@@ -115,26 +140,32 @@
     background-color: white;
     border-radius: 5px;
     border: 1px solid transparent;
-
-    &:hover, &:focus {
+    &:hover,
+    &:focus {
         border: 1px solid rgba(black, 0.3);
     }
 }
 
 .schedule {
+    grid-area: schedule;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 800px;
-    margin: 2em auto;
+    width: 100%; // max-width: 500px;
+    margin: calc(62px + 4em) auto;
+    border-radius: 5px;
     background-color: white;
     box-shadow: 4px 4px 8px rgba(black, 0.15);
 }
 
+@media only screen and (max-width: 768px) {
+
+}
+
 .team-logo {
-    width: 100%;
-    height: 100%;
+    // height: 100%;
+    height: 30px;
+    width: 30px;
 }
 
 .select {
@@ -143,12 +174,22 @@
     width: 15%;
 }
 
-.wrapper--team-logo {
+.wrapper--column {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 20%;
-    height: 80%;
+    border: 1px solid rgba(black, 0.15);
+    width: 100%;
+    height: 150px;
+    padding: 0.5em;
+}
+
+.wrapper--team-logo {
+    display: flex;
+    align-items: center;
+    max-width: 120px;
+    width: 100%;
+    height: 100%;
 }
 
 .game-detail {
@@ -157,13 +198,16 @@
 }
 
 .game {
-    display: flex;
+    display: grid;
+    grid-template-areas: "game game" "game game" "game game";
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr;
     width: 100%;
-    height: 200px;
-    // max-width: 600px;
+    height: fit-content; // max-width: 600px;
     padding: 1em 2em;
     font-size: 1em;
-    color: rgba(0,0,0,0.75);
+    color: rgba(0, 0, 0, 0.75);
+    background-color: white;
     justify-content: center;
     align-items: center;
 }
@@ -185,4 +229,15 @@
     height: 20px;
     width: 20px;
     margin: 0 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .main-layout {
+        grid-template-areas: 
+        "app app"
+        "schedule schedule";
+    }
+    .schedule {
+        margin-top: 0;
+    }
 }

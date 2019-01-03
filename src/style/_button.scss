@@ -6,10 +6,19 @@
     }
 }
 
+button {
+    background-color: inherit;
+    border: 0;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 .btn-icon {
     height: 48px;
     width: 48px;
-    background-color: rgb(255, 116, 23);
+    background-color: inherit;
     border: 0;
     border-radius: 50%;
 
