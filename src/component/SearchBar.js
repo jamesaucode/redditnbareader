@@ -9,7 +9,7 @@ export default class SearchBar extends Component {
     return (
       <div className="flex-centered margin-top-bottom--small max-width">
         <input 
-        placeholder="Search Post"
+        placeholder="Search"
         className="search-bar"
         onChange={this.handleChange}
         value={searchTerm}>

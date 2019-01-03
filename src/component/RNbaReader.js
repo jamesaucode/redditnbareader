@@ -5,7 +5,7 @@ import filterIcon from '../image/funnel.png';
 import sortIcon from '../image/sort.png';
 import dropDownIcon from '../image/dropdown.png';
 import dropUpIcon from '../image/dropup.png';
-import { makeDate } from '../Helper';
+import { makeDate, turnEpochToTime } from '../Helper';
 
 export default class RNbaReader extends Component {
   state = {
@@ -146,51 +146,53 @@ export default class RNbaReader extends Component {
               onSearchTermChange={this.onSearchTermChange}
               searchTerm={searchTerm}
             />
-            <div className="select">
-              <div className="dropdown">
-                <button onClick={this.onFilterClick} className="btn-icon">
-                  <img alt="filter icon" className="icon" src={filterIcon}></img>
-                </button>
-                <div className={showFilter}>
-                  <DropDownOption
-                    currentFilter={filter}
-                    filter="Post Game Thread"
-                    onChangeFilterClick={this.onFilterPostGameThreadClick}
-                  />
-                  <DropDownOption
-                    currentFilter={filter}
-                    filter="Game Thread"
-                    onChangeFilterClick={this.onFilterGameThreadClick}
-                  />
-                  <DropDownOption
-                    currentFilter={filter}
-                    filter="Highlights"
-                    onChangeFilterClick={this.onFilterHighlightsClick}
-                  />
+            <div className="wrapper--select">
+              <div className="select">
+                <div className="dropdown">
+                  <button onClick={this.onFilterClick} className="btn-icon">
+                    <img alt="filter icon" className="icon" src={filterIcon}></img>
+                  </button>
+                  <div className={showFilter}>
+                    <DropDownOption
+                      currentFilter={filter}
+                      filter="Post Game Thread"
+                      onChangeFilterClick={this.onFilterPostGameThreadClick}
+                    />
+                    <DropDownOption
+                      currentFilter={filter}
+                      filter="Game Thread"
+                      onChangeFilterClick={this.onFilterGameThreadClick}
+                    />
+                    <DropDownOption
+                      currentFilter={filter}
+                      filter="Highlights"
+                      onChangeFilterClick={this.onFilterHighlightsClick}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="select">
-              <div className="dropdown">
-                <button onClick={this.onSortByClick} className="btn-icon">
-                  <img className="icon" alt="sort icon" src={sortIcon}></img>
-                </button>
-                <div className={showSortBy}>
-                  <DropDownOption
-                    currentFilter={sortBy}
-                    filter="date"
-                    onChangeFilterClick={this.onSortByDateClick}
-                  />
-                  <DropDownOption
-                    currentFilter={sortBy}
-                    filter="score"
-                    onChangeFilterClick={this.onSortByScoreClick}
-                  />
-                  <DropDownOption
-                    currentFilter={sortBy}
-                    filter="comments"
-                    onChangeFilterClick={this.onSortByCommentsClick}
-                  />
+              <div className="select">
+                <div className="dropdown">
+                  <button onClick={this.onSortByClick} className="btn-icon">
+                    <img className="icon" alt="sort icon" src={sortIcon}></img>
+                  </button>
+                  <div className={showSortBy}>
+                    <DropDownOption
+                      currentFilter={sortBy}
+                      filter="date"
+                      onChangeFilterClick={this.onSortByDateClick}
+                    />
+                    <DropDownOption
+                      currentFilter={sortBy}
+                      filter="score"
+                      onChangeFilterClick={this.onSortByScoreClick}
+                    />
+                    <DropDownOption
+                      currentFilter={sortBy}
+                      filter="comments"
+                      onChangeFilterClick={this.onSortByCommentsClick}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -199,19 +201,17 @@ export default class RNbaReader extends Component {
 
         {filterOpen && <div onClick={this.onFilterClick} className="clickable-back"></div>}
 
-        <div className="list-item list-item--margin-top">
+        <div onClick={this.onForumToggleClick} className="list-item list-item--margin-top">
           {forumOpened
             ?
             <img
               className="icon margin-centered"
               alt="drop up icon"
-              onClick={this.onForumToggleClick}
               src={dropUpIcon}></img>
             :
             <img
               className="icon margin-centered"
               alt="drop down icon"
-              onClick={this.onForumToggleClick}
               src={dropDownIcon}></img>
           }
         </div>
@@ -229,7 +229,8 @@ export default class RNbaReader extends Component {
               if (d.data.link_flair_text === filter) {
                 return (
                   <div className="list-item" key={d.data.id}>
-                    <p className="date">{makeDate(d.data.created)}</p>
+                    {/* <p className="date">{makeDate(d.data.created)}</p> */}
+                    <p className="date">{turnEpochToTime(d.data.created_utc*1000)}</p>
                     <div className="title-score">
                       <p className="score">{d.data.score}</p>
                       <p className="score">{d.data.num_comments}</p>
@@ -237,7 +238,7 @@ export default class RNbaReader extends Component {
                         href={"https://www.reddit.com" + d.data.permalink}
                         rel="noopener noreferrer"
                         target="_blank"
-                        className="link">{this.getHighlightedText(d.data.title, searchTerm)}</a>
+                        className="link no-text-decoration">{this.getHighlightedText(d.data.title, searchTerm)}</a>
                     </div>
                   </div>
                 )
