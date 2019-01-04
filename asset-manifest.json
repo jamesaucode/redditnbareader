@@ -1,7 +1,7 @@
 {
   "main.css": "/redditnbareader/static/css/main.7a507d5f.chunk.css",
-  "main.js": "/redditnbareader/static/js/main.3bd29e91.chunk.js",
-  "main.js.map": "/redditnbareader/static/js/main.3bd29e91.chunk.js.map",
+  "main.js": "/redditnbareader/static/js/main.310381fd.chunk.js",
+  "main.js.map": "/redditnbareader/static/js/main.310381fd.chunk.js.map",
   "static/js/1.305a4800.chunk.js": "/redditnbareader/static/js/1.305a4800.chunk.js",
   "static/js/1.305a4800.chunk.js.map": "/redditnbareader/static/js/1.305a4800.chunk.js.map",
   "runtime~main.js": "/redditnbareader/static/js/runtime~main.f70dbb9a.js",
@@ -35,6 +35,6 @@
   "static/media/washington.png": "/redditnbareader/static/media/washington.074d3f98.png",
   "static/css/main.7a507d5f.chunk.css.map": "/redditnbareader/static/css/main.7a507d5f.chunk.css.map",
   "index.html": "/redditnbareader/index.html",
-  "precache-manifest.be96eeebf8ad9f3d4cb8a92f39287be2.js": "/redditnbareader/precache-manifest.be96eeebf8ad9f3d4cb8a92f39287be2.js",
+  "precache-manifest.734d4d7540b5b2020fa7fec02342c7f5.js": "/redditnbareader/precache-manifest.734d4d7540b5b2020fa7fec02342c7f5.js",
   "service-worker.js": "/redditnbareader/service-worker.js"
 }

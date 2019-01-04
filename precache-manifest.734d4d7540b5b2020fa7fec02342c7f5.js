@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/redditnbareader/static/media/memphis.5e5ad301.png"
   },
   {
-    "revision": "3bd29e9130b014363174",
+    "revision": "310381fdb1390c61beed",
     "url": "/redditnbareader/static/css/main.7a507d5f.chunk.css"
   },
   {
@@ -64,8 +64,8 @@ self.__precacheManifest = [
     "url": "/redditnbareader/static/media/losangeles.a4b1f340.png"
   },
   {
-    "revision": "3bd29e9130b014363174",
-    "url": "/redditnbareader/static/js/main.3bd29e91.chunk.js"
+    "revision": "310381fdb1390c61beed",
+    "url": "/redditnbareader/static/js/main.310381fd.chunk.js"
   },
   {
     "revision": "5456a4e1babc2b5818c7d8566d959f72",
@@ -124,7 +124,7 @@ self.__precacheManifest = [
     "url": "/redditnbareader/static/media/washington.074d3f98.png"
   },
   {
-    "revision": "99accfcda4790549f593308c70aba976",
+    "revision": "fe7e7d64e8f980a6c51ecf312fd4e038",
     "url": "/redditnbareader/index.html"
   }
 ];
