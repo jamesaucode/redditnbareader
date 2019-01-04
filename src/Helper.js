@@ -27,7 +27,7 @@ const turnEpochToTime = (date) => {
 
 const turnToDate = (date) => {
   var epoch = new Date();
-  
+
 }
 
 const makeDateAndYear = (seconds) => {
@@ -47,5 +47,26 @@ const decodeHtml = (html) => {
   return txt.value;
 }
 
-export { cleanString, turnEpoch, turnEpochToTime, capitalizeFirstLetter, makeDate, decodeHtml, makeDateAndYear }
+const turnRegex = (postTitle, home, visitor) => {
+  // console.log(postTitle)
+  var homeTeamIndex = postTitle.toLowerCase().indexOf(home.toLowerCase());
+  var visitorTeamIndex = postTitle.toLowerCase().indexOf(visitor.toLowerCase());
+  var str = postTitle.replace(/ /g, '').replace(/\(\d{1,2}\-\d{1,2}\)/gm, '');
+  var regStr = str.match(/(\d{2,3})(\-\d{2,3})/);
+  // first index is homescore, second index is awayscorer
+  var scoreArray = [];
+
+  if (regStr) {
+    if (homeTeamIndex > visitorTeamIndex) {
+      scoreArray[0] = regStr[2].replace('-', '');
+      scoreArray[1] = regStr[1];
+    } else {
+      scoreArray[0] = regStr[1];
+      scoreArray[1] = regStr[2].replace('-', '');
+    }
+    return scoreArray;
+  }
+}
+
+export { cleanString, turnEpoch, turnEpochToTime, turnRegex, capitalizeFirstLetter, makeDate, decodeHtml, makeDateAndYear }
 

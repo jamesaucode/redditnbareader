@@ -103,7 +103,9 @@ export default class RNbaReader extends Component {
   }
 
   componentDidMount = () => {
-  };
+    
+  }
+  
 
   // To do:
   // 1. Search bar (DONE)
@@ -228,7 +230,7 @@ export default class RNbaReader extends Component {
             {filteredData.map(d => {
               if (d.data.link_flair_text === filter) {
                 return (
-                  <div className="list-item" key={d.data.id}>
+                  <div className="list-item" key={d.id}>
                     {/* <p className="date">{makeDate(d.data.created)}</p> */}
                     <p className="date">{turnEpochToTime(d.data.created_utc*1000)}</p>
                     <div className="title-score">
