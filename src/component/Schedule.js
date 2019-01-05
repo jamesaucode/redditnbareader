@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { turnEpoch, turnEpochToTime, makeDateAndYear, turnRegex } from '../Helper';
+import { findHighlight } from '../ReactHelper';
 import leftArrowIcon from '../image/left.png';
 import rightArrowIcon from '../image/right.png';
+import Score from './Score';
 // import atlanta from '../image/atlanta.png';
 // import boston from '../image/boston.png';
 // import brooklyn from '../image/brooklyn.png';
@@ -74,54 +76,77 @@ export default class Schedule extends Component {
                 <p className="date--schedule">Score might not be correct because it completely relies on the format of the post game thread title atm</p>
                 <div className="wrapper-btn">
                     <button onClick={this.onDateDecrementClick}><img alt="left arrow" src={leftArrowIcon}></img></button>
-                    <p className="date--schedule date--schedule--big">{makeDateAndYear(this.state.dateNow)}</p>
+                    {makeDateAndYear(this.state.dateNow) === makeDateAndYear(Date.now()) ? <p className="date--schedule date--schedule--big">Today</p> : <p className="date--schedule date--schedule--big">{makeDateAndYear(this.state.dateNow)}</p>}
+
                     <button onClick={this.onDateIncrementClick}><img alt="right arrow" src={rightArrowIcon}></img></button>
                 </div>
                 <div className="game">
                     {schedule.map(data => data.games.map(game => (
                         (makeDateAndYear(turnEpoch(game.htm)) === makeDateAndYear(this.state.dateNow)) &&
-                        <div className="wrapper--column">
-                            <div className="wrapper--team-logo">
-                                <img alt="team logo" className="team-logo" src={require(`../image/${game.h.tc.toLowerCase().replace(/ /g, '')}.png`)}></img>
-                                {this.props.data.map(e => {
+                        <Score
+                        home={game.h.tn}
+                        visitor={game.v.tn}
+                        homeLogo={game.h.tc.toLowerCase().replace(/ /g, '')}
+                        visitorLogo={game.v.tc.toLowerCase().replace(/ /g, '')}
+                        time={game.htm}
+                        data={this.props.data}
+                        />
+                        
+                        // <div className="wrapper--column">
+                        //     <div className="wrapper--team-logo">
 
-                                    if (e.data.link_flair_text === "Post Game Thread" && e.data.title.toLowerCase().includes(game.h.tn.toLowerCase()) && e.data.title.toLowerCase().replace(/ /g, '').includes(game.v.tn.toLowerCase().replace(/ /g, '')) && e.data.created * 1000 > turnEpoch(game.htm) && e.data.created * 1000 < turnEpoch(game.htm) + 86400000) {
-                                        var testScore = turnRegex(e.data.title, game.h.tn, game.v.tn);
-                                        if (testScore) {
-                                            score = testScore;
-                                        }
-                                    }
-                                })}
-                                <p className="team-name">{game.h.tn}</p>
-                            </div>
-                            <p className="team-score">{score[0]}</p>
-                            <div className="wrapper--team-logo">
-                                <img alt="team logo" className="team-logo" src={require(`../image/${game.v.tc.toLowerCase().replace(/ /g, '')}.png`)}></img>
-                                <p className="team-name">{game.v.tn}</p>
+                        //         <img alt="team logo" className="team-logo" src={require(`../image/${game.h.tc.toLowerCase().replace(/ /g, '')}.png`)}></img>
+                        //         {this.props.data.map(e => {
+                        //             if (e.data.link_flair_text === "Post Game Thread" && e.data.title.toLowerCase().includes(game.h.tn.toLowerCase()) && e.data.title.toLowerCase().replace(/ /g, '').includes(game.v.tn.toLowerCase().replace(/ /g, '')) && e.data.created * 1000 > turnEpoch(game.htm) && e.data.created * 1000 < turnEpoch(game.htm) + 86400000) {
+                        //                 var testScore = turnRegex(e.data.title, game.h.tn, game.v.tn);
+                        //                 if (testScore) {
+                        //                     score = testScore;
+                        //                 }
+                        //             }
+                        //         })}
+                        //         <p className="team-name">{game.h.tn}</p>
+                        //     </div>
+                        //     {/* if home team wins, home team's score is bolded, vice versa */}
+                        //     {(score[0] > score[1]) ? <p className="team-score">{score[0]}</p> : <p className="team-score team-score--faded">{score[0]}</p>}
 
-                            </div>
-                            <p className="team-score">{score[1]}</p>
-                            <p className="date--schedule">{turnEpochToTime(game.htm)}</p>
-                            {this.props.data.map(e => {
+                        //     <div className="wrapper--team-logo">
+                        //         <img alt="team logo" className="team-logo" src={require(`../image/${game.v.tc.toLowerCase().replace(/ /g, '')}.png`)}></img>
+                        //         <p className="team-name">{game.v.tn}</p>
 
-                                if (e.data.link_flair_text === "Post Game Thread" && e.data.title.toLowerCase().includes(game.h.tn.toLowerCase()) && e.data.title.toLowerCase().includes(game.v.tn.toLowerCase()) && e.data.created * 1000 > turnEpoch(game.htm) && e.data.created * 1000 < turnEpoch(game.htm) + 86400000) {
-                                    // console.log("Post title: " + e.data.title)
-                                    // console.log("Home team name: " + game.h.tn)
-                                    // console.log("Away team name: " + game.v.tn)
-                                    return (
-                                        <a className="link--schedule" rel="noopener noreferrer" target="_blank" href={"https://www.reddit.com" + e.data.permalink}>Post Game Thread</a>
-                                    );
-                                }
+                        //     </div>
+                        //     {/* If away team wins, away team's score is bolded, vice versa*/}
+                        //     {(score[1] > score[0]) ? <p className="team-score">{score[1]}</p> : <p className="team-score team-score--faded">{score[1]}</p>}
 
-                                if (e.data.link_flair_text === "Game Thread" && e.data.title.toLowerCase().replace(/ /g, '').includes(game.h.tn.toLowerCase().replace(/ /g, '')) && e.data.title.toLowerCase().replace(/ /g, '').includes(game.v.tn.toLowerCase().replace(/ /g, '')) && e.data.created * 1000 > turnEpoch(game.htm) && e.data.created * 1000 < turnEpoch(game.htm) + 86400000) {
-                                    return (
-                                        <a className="link--schedule" rel="noopener noreferrer" target="_blank" href={"https://www.reddit.com" +
-                                            e.data.permalink}>Game Thread</a>
-                                    );
-                                }
-                            })}
-                        </div>
+                        //     {/* Resets the score in case the games are not finished yet */}
+                        //     {score = [null, null]}
+                        //     {/* End of reset */}
+
+                        //     <p className="date--schedule">{turnEpochToTime(game.htm)}</p>
+                        //     {this.props.data.map(e => {
+
+                        //         if (e.data.link_flair_text === "Post Game Thread" && e.data.title.toLowerCase().includes(game.h.tn.toLowerCase()) && e.data.title.toLowerCase().includes(game.v.tn.toLowerCase()) && e.data.created * 1000 > turnEpoch(game.htm) && e.data.created * 1000 < turnEpoch(game.htm) + 86400000) {
+                        //             // console.log("Post title: " + e.data.title)
+                        //             // console.log("Home team name: " + game.h.tn)
+                        //             // console.log("Away team name: " + game.v.tn)
+                        //             return (
+                        //                 <a className="link--schedule" rel="noopener noreferrer" target="_blank" href={"https://www.reddit.com" + e.data.permalink}>Post Game Thread</a>
+                        //             );
+                        //         }
+
+                        //         if (e.data.link_flair_text === "Game Thread" && e.data.title.toLowerCase().replace(/ /g, '').includes(game.h.tn.toLowerCase().replace(/ /g, '')) && e.data.title.toLowerCase().replace(/ /g, '').includes(game.v.tn.toLowerCase().replace(/ /g, '')) && e.data.created * 1000 > turnEpoch(game.htm) && e.data.created * 1000 < turnEpoch(game.htm) + 86400000) {
+                        //             return (
+                        //                 <a className="link--schedule" rel="noopener noreferrer" target="_blank" href={"https://www.reddit.com" +
+                        //                     e.data.permalink}>Game Thread</a>
+                        //             );
+                        //         }
+                        //     })}
+                        // </div>
                     )))}
+                </div>
+                <div className="wrapper-btn">
+                    <button onClick={this.onDateDecrementClick}><img alt="left arrow" src={leftArrowIcon}></img></button>
+                    {makeDateAndYear(this.state.dateNow) === makeDateAndYear(Date.now()) ? <p className="date--schedule date--schedule--big">Today</p> : <p className="date--schedule date--schedule--big">{makeDateAndYear(this.state.dateNow)}</p>}
+                    <button onClick={this.onDateIncrementClick}><img alt="right arrow" src={rightArrowIcon}></img></button>
                 </div>
             </div>
         )

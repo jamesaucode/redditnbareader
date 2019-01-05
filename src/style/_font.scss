@@ -111,6 +111,12 @@ span {
     font-weight: 400;
     text-align: left;
     padding-left: 44px;
+    font-weight: 700;
+
+    &--faded {
+        color: rgba(0,0,0,0.5);
+        font-weight: 400;
+    }
 }
 
 .option {
@@ -127,5 +133,13 @@ span {
     &:hover {
         cursor: pointer;
         background-color: rgba(grey, 0.1);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .heading {
+    //     display: none;
+    //    width: 0%;
+        font-size: 1em;
     }
 }

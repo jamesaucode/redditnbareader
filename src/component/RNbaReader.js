@@ -5,12 +5,13 @@ import filterIcon from '../image/funnel.png';
 import sortIcon from '../image/sort.png';
 import dropDownIcon from '../image/dropdown.png';
 import dropUpIcon from '../image/dropup.png';
-import { makeDate, turnEpochToTime } from '../Helper';
+import { turnEpochToTime } from '../Helper';
+import { findHighlight } from '../ReactHelper';
 
 export default class RNbaReader extends Component {
   state = {
     data: [],
-    forumOpened: false,
+    forumOpened: true,
     linkOpened: false,
     searchTerm: '',
     filter: 'Post Game Thread',
@@ -103,9 +104,9 @@ export default class RNbaReader extends Component {
   }
 
   componentDidMount = () => {
-    
+
   }
-  
+
 
   // To do:
   // 1. Search bar (DONE)
@@ -232,7 +233,7 @@ export default class RNbaReader extends Component {
                 return (
                   <div className="list-item" key={d.id}>
                     {/* <p className="date">{makeDate(d.data.created)}</p> */}
-                    <p className="date">{turnEpochToTime(d.data.created_utc*1000)}</p>
+                    <p className="date">{turnEpochToTime(d.data.created_utc * 1000)}</p>
                     <div className="title-score">
                       <p className="score">{d.data.score}</p>
                       <p className="score">{d.data.num_comments}</p>
