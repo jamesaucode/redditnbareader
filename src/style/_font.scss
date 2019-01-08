@@ -113,9 +113,24 @@ span {
     padding-left: 44px;
     font-weight: 700;
 
+    &:empty {
+        background-color: grey;
+        &::after{
+            content: 'Loading...';
+        }
+    }
+
     &--faded {
         color: rgba(0,0,0,0.5);
         font-weight: 400;
+
+        &:empty {
+            background: grey;
+
+            &::after{
+                content: 'Loading...';
+            }
+        }
     }
 }
 

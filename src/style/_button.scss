@@ -27,3 +27,13 @@ button {
         cursor: pointer;
     }
 }
+
+.btn--medium {
+    padding: 12px;
+    width: 50%;
+    font-size: 2em;
+
+    &:hover {
+        background-color: rgba(grey, 0.1);
+    }
+}

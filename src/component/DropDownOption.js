@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import tickIcon from '../image/tick.png'; 
 import { capitalizeFirstLetter } from '../Helper';
 
-export default class DropDownOption extends Component {
-    render() {
-        const { currentFilter, filter, onChangeFilterClick } = this.props;
+const DropDownOption = (props) => {
+      const { currentFilter, filter, onChangeFilterClick } = props;
         return (
             <div onClick={onChangeFilterClick} className="option">
                 {
@@ -16,5 +15,6 @@ export default class DropDownOption extends Component {
                 <span>{capitalizeFirstLetter(filter)}</span>
             </div>
         )
-    }
 }
+
+export default DropDownOption;

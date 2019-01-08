@@ -1,23 +1,26 @@
 import React, { Component } from 'react';
 import SearchBar from './SearchBar';
+import Post from './Post';
 import DropDownOption from './DropDownOption';
 import filterIcon from '../image/funnel.png';
 import sortIcon from '../image/sort.png';
 import dropDownIcon from '../image/dropdown.png';
 import dropUpIcon from '../image/dropup.png';
-import { turnEpochToTime } from '../Helper';
-import { findHighlight } from '../ReactHelper';
+// import { turnEpochToTime } from '../Helper';
+// import { findHighlight } from '../ReactHelper';
 
 export default class RNbaReader extends Component {
   state = {
-    data: [],
     forumOpened: true,
     linkOpened: false,
     searchTerm: '',
     filter: 'Post Game Thread',
+    currentFilterLength: this.props.postgames.length,
     sortBy: 'date',
     filterOpen: false,
     sortByOpen: false,
+    read: {},
+    pageAdjust: 10
   }
 
   onLinkClick = e => {
@@ -63,19 +66,25 @@ export default class RNbaReader extends Component {
   onFilterPostGameThreadClick = e => {
     this.setState({
       filter: 'Post Game Thread',
-      filterOpen: false
+      filterOpen: false,
+      currentFilterLength: this.props.postgames.length,
+      pageAdjust: 10
     })
   }
   onFilterHighlightsClick = e => {
     this.setState({
       filter: 'Highlights',
-      filterOpen: false
+      filterOpen: false,
+      currentFilterLength: this.props.highlights.length,
+      pageAdjust: 10
     })
   }
   onFilterGameThreadClick = e => {
     this.setState({
       filter: 'Game Thread',
-      filterOpen: false
+      filterOpen: false,
+      currentFilterLength: this.props.games.length,
+      pageAdjust: 10
     })
   }
   onSortByDateClick = e => {
@@ -97,15 +106,39 @@ export default class RNbaReader extends Component {
     })
   }
 
-  getHighlightedText = (text, higlight) => {
-    // Split text on higlight term, include term itself into parts, ignore case
-    var parts = text.split(new RegExp(`(${higlight})`, 'gi'));
-    return <span>{parts.map(part => part.toLowerCase() === higlight.toLowerCase() ? <b>{part}</b> : part)}</span>;
+  onPreviousPageClick = e => {
+    var newPageAdjust = this.state.pageAdjust + 10;
+    if (newPageAdjust > this.state.currentFilterLength) {
+      this.setState({
+        pageAdjust: this.state.currentFilterLength
+      })
+    } else {
+      this.setState({
+        pageAdjust: newPageAdjust
+      })
+    }
+  }
+  onNextPageClick = e => {
+    var newPageAdjust = this.state.pageAdjust - 10;
+    if (newPageAdjust > 0) {
+      this.setState(prevState=> ({
+        pageAdjust: newPageAdjust
+      }))
+    } 
   }
 
   componentDidMount = () => {
-
+    
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.currentFilterLength === 0) {
+      this.setState({
+        currentFilterLength: this.props.postgames.length
+      })
+    }
+  }
+  
 
 
   // To do:
@@ -114,7 +147,8 @@ export default class RNbaReader extends Component {
 
   render() {
     const { searchTerm, filter, filterOpen, forumOpened, sortBy, sortByOpen } = this.state;
-    const { data } = this.props;
+    const { postgames, games, highlights } = this.props;
+    var i = 0;
     var showFilter = '';
     if (filterOpen) {
       showFilter = 'dropdown-content--show'
@@ -127,7 +161,16 @@ export default class RNbaReader extends Component {
     } else {
       showSortBy = 'dropdown-content'
     }
-    var filteredData = data.filter(post => post.data.title.toLowerCase().includes(searchTerm.toLowerCase()));
+    var filteredData = postgames;
+    if (this.state.filter === "Post Game Thread") {
+      filteredData = postgames;
+      console.log(filteredData.length)
+    } else if (this.state.filter === "Game Thread") {
+      filteredData = games;
+    } else {
+      filteredData = highlights;
+    }
+    filteredData = filteredData.filter(post => post.data.title.toLowerCase().includes(searchTerm.toLowerCase()));
     switch (sortBy) {
       case 'score':
         filteredData = filteredData.sort((a, b) => { return b.data.score - a.data.score })
@@ -204,7 +247,7 @@ export default class RNbaReader extends Component {
 
         {filterOpen && <div onClick={this.onFilterClick} className="clickable-back"></div>}
 
-        <div onClick={this.onForumToggleClick} className="list-item list-item--margin-top">
+        <div onClick={this.onForumToggleClick} className="list-item list-item--margin-top list-item--small">
           {forumOpened
             ?
             <img
@@ -221,7 +264,7 @@ export default class RNbaReader extends Component {
 
         {forumOpened &&
           <div className="wrapper--list">
-            <div className="list-item">
+            <div className="list-item list-item--small">
               <div className="title-score">
                 <p className="label">Score</p>
                 <p className="label">Comments</p>
@@ -229,26 +272,26 @@ export default class RNbaReader extends Component {
               </div>
             </div>
             {filteredData.map(d => {
-              if (d.data.link_flair_text === filter) {
-                return (
-                  <div className="list-item" key={d.id}>
-                    {/* <p className="date">{makeDate(d.data.created)}</p> */}
-                    <p className="date">{turnEpochToTime(d.data.created_utc * 1000)}</p>
-                    <div className="title-score">
-                      <p className="score">{d.data.score}</p>
-                      <p className="score">{d.data.num_comments}</p>
-                      <a
-                        href={"https://www.reddit.com" + d.data.permalink}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        className="link no-text-decoration">{this.getHighlightedText(d.data.title, searchTerm)}</a>
-                    </div>
-                  </div>
-                )
-              } else {
-                return null;
+              if (d.data.link_flair_text === filter && i < 10 + this.state.pageAdjust) {
+                i++;
+                if (i > this.state.pageAdjust)
+                  return (
+                    <Post
+                    created={d.data.created_utc * 1000}
+                    score={d.data.score}
+                    num_comments={d.data.num_comments}
+                    id={d.id}
+                    permalink={d.data.permalink}
+                    title={d.data.title}
+                    searchTerm={searchTerm}
+                    />
+                  )
               }
             })}
+            <div className="wrapper--btns">
+              <button className="btn--medium" onClick={this.onPreviousPageClick}>←</button>
+              <button className="btn--medium" onClick={this.onNextPageClick}>→</button>
+            </div>
           </div>
         }
       </div>

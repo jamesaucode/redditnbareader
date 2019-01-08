@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { turnEpoch, turnEpochToTime, makeDateAndYear, turnRegex } from '../Helper';
-import { findHighlight } from '../ReactHelper';
+import { turnEpoch, makeDateAndYear } from '../Helper';
+// import { findHighlight } from '../ReactHelper';
 import leftArrowIcon from '../image/left.png';
 import rightArrowIcon from '../image/right.png';
 import Score from './Score';
@@ -88,8 +88,10 @@ export default class Schedule extends Component {
                         visitor={game.v.tn}
                         homeLogo={game.h.tc.toLowerCase().replace(/ /g, '')}
                         visitorLogo={game.v.tc.toLowerCase().replace(/ /g, '')}
-                        time={game.htm}
-                        data={this.props.data}
+                        time={turnEpoch(game.htm)}
+                        highlights={this.props.highlights}
+                        postgames={this.props.postgames}
+                        games={this.props.games}
                         />
                         
                         // <div className="wrapper--column">

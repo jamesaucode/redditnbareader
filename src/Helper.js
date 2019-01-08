@@ -25,11 +25,6 @@ const turnEpochToTime = (date) => {
   return time.getFullYear() + "-" + (time.getMonth() + 1) + "-" + time.getDate() + '\n' + time.getHours() + ":" + min;
 }
 
-const turnToDate = (date) => {
-  var epoch = new Date();
-
-}
-
 const makeDateAndYear = (seconds) => {
   var date = new Date(seconds);
   return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
